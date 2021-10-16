@@ -28,6 +28,11 @@ const ReactionSchema = new Schema(
 
 const ThoughtSchema = new Schema(
     {
+        username: {
+            type: String,
+            required: true,
+            trim: true
+        },
         thoughtText:{
             type: String,
             required: 'Please enter your Thoughts', 
