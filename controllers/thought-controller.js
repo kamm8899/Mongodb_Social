@@ -71,8 +71,57 @@ updateThought({ params, body }, res) {
       .catch(err => res.status(400).json(err));
   },
   //Delete to remove a thought by its _id
-  
-  
+  deleteThought({ params }, res) {
+    Thought.findOneAndDelete({ _id: params.id })
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: 'No Thought found with this id!' })
+          return;
+        }
+        return User.findOneAndUpdate(
+          { _id: params.userId },
+          { $pull: { thoughts: params.thoughtId } },
+          { new: true }
+        )        
+      })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(400).json({message: 'Thought  ID was sucessfully deleted'})
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        res.status(err)
+    })
+  },
+  //api/thoughts/:thoughtId/reactions
+  //Reaction Post to create a reaction stored in a single thoughts reactions array
+
+  addReaction({ params, body }, res) {
+    Thought.findOneAndUpdate(
+        { _id: params.thoughtId },
+        { $push: { reactions: body } },
+        { new: true }
+    )
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: 'No User found with this id!' });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => res.json(err));
+},
+  //Delete to pull and remove a reaction by the reactions' reactionId
+  deleteReaction({ params }, res) {
+    Thought.findOneAndUpdate(
+        { _id: params.thoughtId },
+        { $pull: { reactions: { reactionId: params.reactionId } } },
+        { new: true }
+    )
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.json(err));
+}
 
 };
 
