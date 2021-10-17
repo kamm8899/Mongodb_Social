@@ -40,7 +40,7 @@ const thoughtController = {
           
   })
 },
-//remove thought
+//delete thought
 deleteThought({params}, res){
     Thought.findOneAndDelete({ _id: params.thoughtId })
         .then(deletedthought => {
@@ -124,4 +124,6 @@ updateThought({ params, body }, res) {
 }
 
 };
+
+module.exports = ThoughtController;
 
