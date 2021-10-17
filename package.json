@@ -1,0 +1,24 @@
+{
+  "name": "mongodb_social",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamm8899/Mongodb_Social.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamm8899/Mongodb_Social/issues"
+  },
+  "homepage": "https://github.com/kamm8899/Mongodb_Social#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moongoose": "0.0.5"
+  }
+}
