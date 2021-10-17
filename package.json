@@ -19,6 +19,6 @@
   "homepage": "https://github.com/kamm8899/Mongodb_Social#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "moongoose": "0.0.5"
+    "mongoose": "^5.3.16"
   }
 }

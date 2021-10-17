@@ -13,9 +13,10 @@ const thoughtController = {
                 res.status(400).json(err);
             });
       },
-       // get one User by id
+       // get one Thought by id
   getThoughtById({ params }, res) {
-    Thought.findOne({ _id: params.thoughtid })
+    console.log(params);
+    Thought.findOne({ _id: params.thoughtId })
       .select('-__v')
       .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => {
@@ -26,10 +27,10 @@ const thoughtController = {
   //Create new thoughts
   createThought({ params, body }, res) {
     Thought.create(body)
-        .then(({_id})=>{
+        .then(dbThoughtData => {
             return User.findOneAndUpdate(
-                { _id: params.userId},
-                { $push: {thoughts: _id}},
+                { username: body.username},
+                { $push: {thoughts: dbThoughtData._id}},
                 {new: true}
             );
         })
@@ -125,5 +126,5 @@ updateThought({ params, body }, res) {
 
 };
 
-module.exports = ThoughtController;
+module.exports = thoughtController;
 
