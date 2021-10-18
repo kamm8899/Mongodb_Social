@@ -13,8 +13,7 @@ const{
 ///api/thoughts
 router
   .route('/')
-  .get(getAllThoughts)
-  .post(createThought);
+  .get(getAllThoughts);
 
   // /api/thought/:id
 router

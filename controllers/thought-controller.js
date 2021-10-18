@@ -1,4 +1,4 @@
-const { Thought, User, Types } = require('../models');
+const { Thought, User} = require('../models');
 
 //thought Controller
 const thoughtController = {
@@ -16,7 +16,7 @@ const thoughtController = {
        // get one Thought by id
   getThoughtById({ params }, res) {
     console.log(params);
-    Thought.findOne({ _id: params.thoughtId })
+    Thought.findOne({ _id: params.thoughtd })
       .select('-__v')
       .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => {
@@ -27,11 +27,11 @@ const thoughtController = {
   //Create new thoughts
   createThought({ params, body }, res) {
     Thought.create(body)
-        .then(dbThoughtData => {
-            return User.findOneAndUpdate(
-                { username: body.username},
-                { $push: {thoughts: dbThoughtData._id}},
-                {new: true}
+    .then(({ _id }) => {
+      return User.findOneAndUpdate(
+          { _id: params.userId },
+          { $push: { thoughts: _id } },
+          { new: true }
             );
         })
       .then(dbThoughtData => res.json(dbThoughtData))
@@ -49,7 +49,7 @@ deleteThought({params}, res){
                 return res.status(404).json({ message: 'No thought found with this id!' });
             }
             return User.findOneAndUpdate(
-                { _id: params.username },
+                { _id: params.userId },
                 { $pull: { thoughts: params.thoughtId } },
                 { new: true }
             );
@@ -70,30 +70,6 @@ updateThought({ params, body }, res) {
         res.json(dbThoughtData);
       })
       .catch(err => res.status(400).json(err));
-  },
-  //Delete to remove a thought by its _id
-  deleteThought({ params }, res) {
-    Thought.findOneAndDelete({ _id: params.id })
-      .then((dbThoughtData) => {
-        if (!dbThoughtData) {
-          res.status(404).json({ message: 'No Thought found with this id!' })
-          return;
-        }
-        return User.findOneAndUpdate(
-          { _id: params.userId },
-          { $pull: { thoughts: params.thoughtId } },
-          { new: true }
-        )        
-      })
-      .then((dbUserData) => {
-        if (!dbUserData) {
-          res.status(400).json({message: 'Thought  ID was sucessfully deleted'})
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        res.status(err)
-    })
   },
   //api/thoughts/:thoughtId/reactions
   //Reaction Post to create a reaction stored in a single thoughts reactions array
@@ -128,3 +104,5 @@ updateThought({ params, body }, res) {
 
 module.exports = thoughtController;
 
+//Thought ID not able to delete 
+//Thought create says null but working when pulling
