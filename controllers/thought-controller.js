@@ -29,16 +29,18 @@ const thoughtController = {
     console.log(body);
     Thought.create(body)
     .then(({ _id }) => {
-      return User.findOneAndUpdate(
+      let output= User.findOneAndUpdate(
           { _id: params.userId },
           { $push: { thoughts: _id } },
-          { new: true}
-          );
+          { new: true})
+          console.log(output + "Error");
+          return output;
+          
         })
-      .then(dbThoughtData =>{
+      .then((dbThoughtData) =>{
         if(!dbThoughtData){
           res.status(404).json({message: 'No Thought found with this ID!'});
-          return;
+          return ;
         }
        res.json(dbThoughtData);
       })
@@ -52,7 +54,7 @@ deleteThought({params}, res){
                 return res.status(404).json({ message: 'No thought found with this id!' });
             }
             return User.findOneAndUpdate(
-                { _id: params.userId },
+                { username: deletedthought.username },
                 { $pull: { thoughts: params.thoughtId } },
                 { new: true }
             );
@@ -108,4 +110,3 @@ updateThought({ params, body }, res) {
 module.exports = thoughtController;
 
 //Reaction ID not able to delete
-//Thought create says null but working when pulling
