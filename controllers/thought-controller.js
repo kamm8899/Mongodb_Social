@@ -16,7 +16,7 @@ const thoughtController = {
        // get one Thought by id
   getThoughtById({ params }, res) {
     console.log(params);
-    Thought.findOne({ _id: params.thoughtd })
+    Thought.findOne({ _id: params.thoughtId })
       .select('-__v')
       .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => {
@@ -109,4 +109,3 @@ updateThought({ params, body }, res) {
 
 module.exports = thoughtController;
 
-//Reaction ID not able to delete
