@@ -25,9 +25,9 @@
  The project could be used for a MVP of a Social media site or a daily thought collector for your thoughts with the idea that you could add your own reactions, and your friends could also read your reactions as well. This could be really easy to be turned into a blog. 
 
   # Demonstration
-  [The video can be viewed through clicking on this link:](https://youtu.be/QiRzqXBpq2I)
+  [The video can be viewed through clicking on this link:](https://www.awesomescreenshot.com/video/5753025?key=91fc35fab162bf62b281009688de8435)
 
-   ![ScreenShot](./media/Employee.png) 
+   ![ScreenShot](./images/Thought.png) 
    ## Contribution
   There were no contributions from Students, but I did utilize the TA's during Office Hours
   ## Tests
